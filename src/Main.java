@@ -79,24 +79,35 @@ public class Main {  // Replace "template_2D" with your file name
 //            glEnd();
 
             //third shape
-            glBegin(GL_POLYGON);
+//            glBegin(GL_POLYGON);
+//            {
+//                glColor3d(1, 1, 1 );
+//                //TOP
+//                glVertex3f(0, .75f,0);
+//                //top right
+//                glVertex3f(.75f, .15f,0);
+//                //bottom right
+//                glVertex3f(.5f, -.75f,0);
+//                //bottom left
+//                glVertex3f(-.5f, -.75f,0);
+//                //top left
+//                glVertex3f(-.75f, .15f,0);
+//
+//            }
+//            glEnd();
+
+            glBegin(GL_QUAD_STRIP);
             {
-                glColor3d(1, 1, 1 );
-                //TOP
-                glVertex3f(0, .75f,0);
-                //top right
-                glVertex3f(.75f, .15f,0);
-                //bottom right
-                glVertex3f(.5f, -.75f,0);
-                //bottom left
-                glVertex3f(-.5f, -.75f,0);
-                //top left
-                glVertex3f(-.75f, .15f,0);
+
+                glColor3d(0,1,0);
+                glVertex3f(.7f, .3f,0);
+                glVertex3f(.6f, -.2f,0);
+                glVertex3f(0.1f, .2f,0);
+                glVertex3f(.1f, -.3f,0);
+
 
             }
             glEnd();
-
-
 
 
             glfwSwapBuffers(window); // swap the color buffers

@@ -96,20 +96,41 @@ public class Main {  // Replace "template_2D" with your file name
 //            }
 //            glEnd();
 
-            glBegin(GL_QUAD_STRIP);
+//            forth shape
+//            glBegin(GL_QUAD_STRIP);
+//            {
+//
+//                glColor3d(0,1,0);
+//                glVertex3f(.7f, .3f,0);
+//                glVertex3f(.6f, -.2f,0);
+//                glVertex3f(0.1f, .2f,0);
+//                glVertex3f(.1f, -.3f,0);
+//
+//                glColor3d(1,0,0);
+//
+//                glVertex3f(0.05f, .2f,0);
+//                glVertex3f(.05f, -.3f,0);
+//                glVertex3f(-.3f, .3f,0);
+//                glVertex3f(-.3f, -.3f,0);
+//
+//            }
+//            glEnd();
+
+
+
+            //fifth shape
+
+            glBegin(GL_TRIANGLE_STRIP);
             {
-
                 glColor3d(0,1,0);
-                glVertex3f(.7f, .3f,0);
-                glVertex3f(.6f, -.2f,0);
-                glVertex3f(0.1f, .2f,0);
-                glVertex3f(.1f, -.3f,0);
+                glVertex3f(0.7f, 0.7f, 0);
+                glVertex3f(0.5f, 0, 0);
+                glColor3d(1,1,1);
+                glVertex3f(0, 0.7f, 0);
 
-
+                glVertex3f(-0.2f, 0, 0);
             }
             glEnd();
-
-
             glfwSwapBuffers(window); // swap the color buffers
 
             // Poll for window events. The key callback above will only be

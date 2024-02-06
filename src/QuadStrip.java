@@ -50,8 +50,8 @@ public class QuadStrip{  // Replace "template_2D" with your file name
 
                 glColor3d(1,0,0);
 
-                glVertex3f(0.05f, .2f,0);
-                glVertex3f(.05f, -.3f,0);
+                glVertex3f(0.1f, .2f,0);
+                glVertex3f(.1f, -.3f,0);
                 glVertex3f(-.3f, .3f,0);
                 glVertex3f(-.3f, -.3f,0);
 

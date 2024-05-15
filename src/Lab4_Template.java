@@ -9,12 +9,20 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-public class Main {  // Replace "template_2D" with your file name
-    // The window handle
-    private long window;
+public class Lab4_Template {  // Replace "Lab4_Template" with your file name
+
+    // Variables that will be updated
+    private long window;  // The window handle
+
+    private double speed = 0.01;  // Control the speed
+    private double xScale = 1;
+    private double yScale = 1;
+
+    // Fixed value constants
+    final private double gap = 1;
 
     public static void main(String[] args) {
-        new Main().run();  // Replace "template_2D" with your file name
+        new Lab4_Template().run();  // Replace "Lab4_Template" with your file name
     }
 
     private void loop() {
@@ -25,112 +33,77 @@ public class Main {  // Replace "template_2D" with your file name
         // bindings available for use.
         GL.createCapabilities();
 
-        // Set the clear color
-//        glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
+
+        glScaled(0.7, 0.7, 0.7);  // Scale all shapes to fit inside our window
 
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
-        glTranslated(0, 0, 0);
-
         while (!glfwWindowShouldClose(window)) {
+            if (glfwGetKey(window, GLFW_KEY_UP) == GL_TRUE) {  // if up arrow key is pressed
+                yScale += speed;  // Move up by Increasing the value of yPosition
+            }
+            if (glfwGetKey(window, GLFW_KEY_DOWN) == GL_TRUE) {  // if down arrow key is pressed
+                yScale -= speed;  // Move down by decreasing the value of yPosition
+            }
+
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 
-
-
-
-//            glBegin(GL_TRIANGLES);
-//            {
-//                glColor3d(1, 0, 0);
-//                glVertex3f(0, 0.5f, 0);
-//                glVertex3f(-0.5f, -0.5f, 0);
-//                glVertex3f(0.5f, -0.5f, 0);
-//            }
-//            glEnd();
-
-            //first shape
-//            glBegin(GL_LINE_STRIP);
-//            {
-//
-//                glColor3d(0,1,0);
-//                glVertex3f(0.25f, 0.5f,0);
-//                glVertex3f(-0.25f, 0.5f,0);
-//                glVertex3f(-0.25f, 0,0);
-//                glVertex3f(0.25f, 0,0);
-//                glVertex3f(0.25f, -0.5f,0);
-//                glVertex3f(-0.25f, -0.5f,0);
-//
-//            }
-//            glEnd();
-
-
-            //second shape
-//            glBegin(GL_LINE_STRIP);
-//            {
-//
-//                glColor3d(0,1,0);
-//                glVertex3f(0.25f, 0.5f,0);
-//                glVertex3f(-0.25f, 0.5f,0);
-//                glVertex3f(-0.25f, 0,0);
-//                glVertex3f(0.25f, 0,0);
-//                glVertex3f(0.25f, -0.5f,0);
-//                glVertex3f(-0.25f, -0.5f,0);
-//
-//            }
-//            glEnd();
-
-            //third shape
-//            glBegin(GL_POLYGON);
-//            {
-//                glColor3d(1, 1, 1 );
-//                //TOP
-//                glVertex3f(0, .75f,0);
-//                //top right
-//                glVertex3f(.75f, .15f,0);
-//                //bottom right
-//                glVertex3f(.5f, -.75f,0);
-//                //bottom left
-//                glVertex3f(-.5f, -.75f,0);
-//                //top left
-//                glVertex3f(-.75f, .15f,0);
-//
-//            }
-//            glEnd();
-
-//            forth shape
-            glBegin(GL_QUADS);
+            // Duplicate the matrix (push its value to the matrix stack) to save the previous transformation state.
+            glPushMatrix();
             {
+            /* Any transformations made after this statement will not affect the other matrices i.e. the transformations
+               will be applied to the shapes written between glPushMatrix() and glPopMatrix() only. */
 
-                glColor3d(0,1,0);
-                glVertex3f(.7f, .3f,0);
-                glVertex3f(.6f, -.2f,0);
-                glVertex3f(0.1f, .2f,0);
-                glVertex3f(.1f, -.3f,0);
+                // Moving the drawing cursor to the right
+                glTranslated(0.7, 0, 0);
 
-                glColor3d(1,0,0);
+                // Scale the shape in Y axis only
+                glScaled(1, yScale, 1);  // Using the values of (yScale) to change the triangle's scale
 
-                glVertex3f(0.05f, .2f,0);
-                glVertex3f(.05f, -.3f,0);
-                glVertex3f(-.3f, .3f,0);
-                glVertex3f(-.3f, -.3f,0);
+                glBegin(GL_TRIANGLES);
+                { // Draw a triangle
+
+                    glColor3d(0.8, 0.6, 0.7);  // custom color
+                    glVertex3f(0, 0.5f, 0);  // Top point
+                    glVertex3f(-0.5f, -0.5f, 0);  // Left point
+                    glVertex3f(0.5f, -0.5f, 0);  // Right point
+
+                }
+                glEnd();
 
             }
-            glEnd();
+            glPopMatrix();  // Restore the global matrix (pop the matrix stack) and set it as the current matrix.
+
+            // Duplicate the matrix (push its value to the matrix stack) to save the previous transformation state.
+            glPushMatrix();
+            {
+            /* Any transformations made after this statement will not affect the other matrices i.e. the transformations
+               will be applied to the shapes written between glPushMatrix() and glPopMatrix() only. */
+
+                // Moving the drawing cursor to the left
+                glTranslated(-0.7, 0, 0);
+
+                // Scale the shape in X axis only
+                glScaled(xScale, 1, 1);  // Using the values of (xScale) to change the triangle's scale
+
+                glBegin(GL_QUADS);
+                {  // Draw a quad (square or rectangle)
+
+                    glColor3d(0, 1, 0);  // Green color
+                    glVertex3f(0.5f, 0.5f, 0);  // Top right
+                    glColor3d(1, 0, 0);  // Red color
+                    glVertex3f(-0.5f, 0.5f, 0);  // Top left
+                    glColor3d(1, 1, 1);  // White color
+                    glVertex3f(-0.5f, -0.5f, 0);  // Bottom left
+                    glColor3d(0, 0, 1);  // Blue color
+                    glVertex3f(0.5f, -0.5f, 0);  // Bottom right
+
+                }
+                glEnd();
+            }
+            glPopMatrix();  // Restore the global matrix (pop the matrix stack) and set it as the current matrix.
 
 
-
-            //fifth shape
-//
-//            glBegin(GL_TRIANGLE_STRIP);
-//            {
-//                glColor3d(0,1,0);
-//                glVertex3f(0.7f, 0.7f, 0);
-//                glVertex3f(0.5f, 0, 0);
-//                glColor3d(1,1,1);
-//                glVertex3f(0, 0.7f, 0);
-//
-//                glVertex3f(-0.2f, 0, 0);
-//            }
-//            glEnd();
             glfwSwapBuffers(window); // swap the color buffers
 
             // Poll for window events. The key callback above will only be
@@ -210,3 +183,4 @@ public class Main {  // Replace "template_2D" with your file name
         glfwShowWindow(window);
     }
 }
+        

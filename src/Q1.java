@@ -9,12 +9,17 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-public class Main {  // Replace "template_2D" with your file name
+public class Q1{  // Replace "template_2D" with your file name
     // The window handle
     private long window;
-
+    private double speed = 0.01;  // Control the speed
+    private double xScale = 1;
+    private double yScale = 1;
+    private double xTranslation = 0;
+    private double yTranslation = 0;
+    private double zTranslation = 0;
     public static void main(String[] args) {
-        new Main().run();  // Replace "template_2D" with your file name
+        new Q1().run();  // Replace "template_2D" with your file name
     }
 
     private void loop() {
@@ -31,106 +36,91 @@ public class Main {  // Replace "template_2D" with your file name
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
         glTranslated(0, 0, 0);
-
+        glEnable(GL_DEPTH_TEST);
         while (!glfwWindowShouldClose(window)) {
+
+            if (glfwGetKey(window, GLFW_KEY_UP) == GL_TRUE) {  // if up arrow key is pressed
+                zTranslation += .02;  // Move up by Increasing the value of yPosition
+            }
+            if (glfwGetKey(window, GLFW_KEY_DOWN) == GL_TRUE) {  // if down arrow key is pressed
+                zTranslation -= .02;  // Move down by decreasing the value of yPosition
+            }
+            //if 'w' is pressed
+            if (glfwGetKey(window, GLFW_KEY_W) == GL_TRUE) {
+                yTranslation += .02;  // Move right by Increasing the value of xPosition
+            }
+
+            if (glfwGetKey(window, GLFW_KEY_S) == GL_TRUE) {
+                yTranslation -= .02;  // Move right by Increasing the value of xPosition
+            }
+
+            if (glfwGetKey(window, GLFW_KEY_D) == GL_TRUE) {
+                xTranslation += .02;  // Move right by Increasing the value of xPosition
+            }
+
+            if (glfwGetKey(window, GLFW_KEY_A) == GL_TRUE) {
+                xTranslation -= .02;  // Move right by Increasing the value of xPosition
+            }
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 
 
 
+        //draw a 2d letter H as a polygon
+            glPushMatrix();
+            glRotatef(20,0,0,1);
+        glBegin(GL_POLYGON);
+        {
+            glColor3d(1, 1, 1 );
+            //TOP left
+            glVertex3f(-.5f, .5f,0);
+            //top right
+            glVertex3f(-.45f, .5f,0);
+            //bottom right
+            glVertex3f(-.45f, .2f,0);
+            //bottom left
+            glVertex3f(-.5f, .2f,0);
 
-//            glBegin(GL_TRIANGLES);
-//            {
-//                glColor3d(1, 0, 0);
-//                glVertex3f(0, 0.5f, 0);
-//                glVertex3f(-0.5f, -0.5f, 0);
-//                glVertex3f(0.5f, -0.5f, 0);
-//            }
-//            glEnd();
+        }
+        glEnd();
 
-            //first shape
-//            glBegin(GL_LINE_STRIP);
-//            {
-//
-//                glColor3d(0,1,0);
-//                glVertex3f(0.25f, 0.5f,0);
-//                glVertex3f(-0.25f, 0.5f,0);
-//                glVertex3f(-0.25f, 0,0);
-//                glVertex3f(0.25f, 0,0);
-//                glVertex3f(0.25f, -0.5f,0);
-//                glVertex3f(-0.25f, -0.5f,0);
-//
-//            }
-//            glEnd();
-
-
-            //second shape
-//            glBegin(GL_LINE_STRIP);
-//            {
-//
-//                glColor3d(0,1,0);
-//                glVertex3f(0.25f, 0.5f,0);
-//                glVertex3f(-0.25f, 0.5f,0);
-//                glVertex3f(-0.25f, 0,0);
-//                glVertex3f(0.25f, 0,0);
-//                glVertex3f(0.25f, -0.5f,0);
-//                glVertex3f(-0.25f, -0.5f,0);
-//
-//            }
-//            glEnd();
-
-            //third shape
-//            glBegin(GL_POLYGON);
-//            {
-//                glColor3d(1, 1, 1 );
-//                //TOP
-//                glVertex3f(0, .75f,0);
-//                //top right
-//                glVertex3f(.75f, .15f,0);
-//                //bottom right
-//                glVertex3f(.5f, -.75f,0);
-//                //bottom left
-//                glVertex3f(-.5f, -.75f,0);
-//                //top left
-//                glVertex3f(-.75f, .15f,0);
-//
-//            }
-//            glEnd();
-
-//            forth shape
-            glBegin(GL_QUADS);
+            glPushMatrix();
+            glTranslatef(.1f, 0, 0);
+            glBegin(GL_POLYGON);
             {
-
-                glColor3d(0,1,0);
-                glVertex3f(.7f, .3f,0);
-                glVertex3f(.6f, -.2f,0);
-                glVertex3f(0.1f, .2f,0);
-                glVertex3f(.1f, -.3f,0);
-
-                glColor3d(1,0,0);
-
-                glVertex3f(0.05f, .2f,0);
-                glVertex3f(.05f, -.3f,0);
-                glVertex3f(-.3f, .3f,0);
-                glVertex3f(-.3f, -.3f,0);
-
+                glColor3d(1, 1, 1 );
+                //TOP Left
+                glVertex3f(-.5f, .5f,0);
+                //top right
+                glVertex3f(-.45f, .5f,0);
+                //bottom right
+                glVertex3f(-.45f, .2f,0);
+                //bottom left
+                glVertex3f(-.5f, .2f,0);
             }
             glEnd();
+            glPopMatrix();
 
+        glBegin(GL_POLYGON);
+        {
+            glColor3d(1, 1, 1 );
+            //TOP Left
+            glVertex3f(-.4f, .4f,0);
+            //top right
+            glVertex3f(-.45f, .4f,0);
+            //bottom right
+            glVertex3f(-.45f, .38f,0);
+            //bottom left
+            glVertex3f(-.4f, .38f,0);
+        }
+        glEnd();
+        glPopMatrix();
 
+           glPushMatrix();
+            glTranslated(xTranslation, yTranslation, zTranslation);
 
-            //fifth shape
-//
-//            glBegin(GL_TRIANGLE_STRIP);
-//            {
-//                glColor3d(0,1,0);
-//                glVertex3f(0.7f, 0.7f, 0);
-//                glVertex3f(0.5f, 0, 0);
-//                glColor3d(1,1,1);
-//                glVertex3f(0, 0.7f, 0);
-//
-//                glVertex3f(-0.2f, 0, 0);
-//            }
-//            glEnd();
+            drawCircle(0.5f, 0.0f, 0.2f, 100);
+            glPopMatrix();
+
             glfwSwapBuffers(window); // swap the color buffers
 
             // Poll for window events. The key callback above will only be
@@ -138,7 +128,18 @@ public class Main {  // Replace "template_2D" with your file name
             glfwPollEvents();
         }
     }
-
+    private void drawCircle(float cx, float cy, float r, int num_segments) {
+        glBegin(GL_TRIANGLE_FAN);
+        glColor3f(1.0f, 1.0f, 1.0f); // White color
+        glVertex2f(cx, cy); // Center of circle
+        for (int i = 0; i <= num_segments; i++) {
+            double angle = 2 * Math.PI * i / num_segments;
+            float x = (float) (cx + Math.cos(angle) * r);
+            float y = (float) (cy + Math.sin(angle) * r);
+            glVertex2f(x, y);
+        }
+        glEnd();
+    }
     public void run() {
         System.out.println("Hello LWJGL " + Version.getVersion() + "!");
 
@@ -170,7 +171,7 @@ public class Main {  // Replace "template_2D" with your file name
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
 
         // Create the window
-        window = glfwCreateWindow(1000, 600, "Hello World!", NULL, NULL);
+        window = glfwCreateWindow(600, 600, "Hello World!", NULL, NULL);
         if (window == NULL) {
             throw new RuntimeException("Failed to create the GLFW window");
         }
